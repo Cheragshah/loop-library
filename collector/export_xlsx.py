@@ -13,7 +13,8 @@ DIST = Path(__file__).resolve().parent / "dist"
 # (header, loop-key, column width)
 COLUMNS = [
     ("Loop name", "name", 34),
-    ("Complete loop (command)", "command", 80),
+    ("Command", "slash", 22),
+    ("Complete loop (prompt)", "command", 80),
     ("What it does (repurpose for)", "what_it_does", 50),
     ("Category", "category", 16),
     ("Author", "author", 22),

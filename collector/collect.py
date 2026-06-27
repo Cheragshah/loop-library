@@ -18,7 +18,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import store
-from collectors import forwardfuture, manual, social
+from collectors import csv_loops, forwardfuture, manual, social
 from export_xlsx import export as export_xlsx
 
 # The Vite app reads its data from public/. CI commits these files.
@@ -26,6 +26,7 @@ PUBLIC = Path(__file__).resolve().parent.parent / "public"
 
 COLLECTORS = [
     ("forwardfuture", forwardfuture.collect),
+    ("csv", csv_loops.collect),
     ("social", social.collect),
     ("manual", manual.collect),
 ]

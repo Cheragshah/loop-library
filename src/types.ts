@@ -1,6 +1,8 @@
 export interface Loop {
   id: string;
   name: string;
+  /** The /slash invocation, if any. */
+  slash?: string;
   /** The complete loop prompt, ready to copy and repurpose. */
   command: string;
   what_it_does: string;

@@ -20,6 +20,7 @@ STORE_PATH = DATA_DIR / "loops.json"
 FIELDS = [
     "id",
     "name",          # the name of the loop (what to call the command)
+    "slash",         # the /slash invocation, if any
     "command",       # the complete loop prompt, ready to repurpose
     "what_it_does",  # one-line summary of the loop's job
     "category",
@@ -79,6 +80,7 @@ def merge(existing: dict[str, dict], collected: list[dict]) -> dict[str, dict]:
         loop = {
             "id": lid,
             "name": name,
+            "slash": (raw.get("slash") or "").strip(),
             "command": command,
             "what_it_does": (raw.get("what_it_does") or "").strip(),
             "category": (raw.get("category") or "uncategorized").strip().lower(),

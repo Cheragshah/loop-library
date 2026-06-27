@@ -20,6 +20,7 @@ export function LoopCard({ loop }: { loop: Loop }) {
       </div>
 
       <h3 className="card-name">{loop.name}</h3>
+      {loop.slash && <code className="card-slash">{loop.slash}</code>}
       <p className="card-does">{loop.what_it_does}</p>
 
       <pre className="card-command">{loop.command}</pre>
