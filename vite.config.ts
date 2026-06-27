@@ -1,9 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// For GitHub Pages project sites the app is served from /<repo>/.
-// Override by setting BASE_PATH (e.g. "/" for a custom domain or user site).
-const base = process.env.BASE_PATH ?? "/loop-library/";
+// Default to root "/" so host-at-root deploys (Vercel, custom domains) work.
+// The GitHub Pages workflow sets BASE_PATH=/<repo>/ to serve from a subpath.
+const base = process.env.BASE_PATH ?? "/";
 
 export default defineConfig({
   base,
