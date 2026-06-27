@@ -1,0 +1,68 @@
+name: Refresh loops & deploy
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 6 * * *" # daily at 06:00 UTC — the "loop" that keeps data fresh
+  workflow_dispatch: {} # lets you trigger a refresh manually from the Actions tab
+
+permissions:
+  contents: write # to commit refreshed loops.json
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install collector deps
+        run: pip install requests openpyxl
+
+      - name: Collect trending loops
+        run: python3 collector/collect.py
+
+      - name: Commit refreshed data
+        run: |
+          git config user.name "loop-bot"
+          git config user.email "actions@github.com"
+          git add public/loops.json public/loop-library.xlsx collector/data/loops.json
+          git diff --staged --quiet || git commit -m "chore: refresh loops $(date -u +%F)"
+          git push || echo "nothing to push"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build site
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/
+        run: npm run build
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

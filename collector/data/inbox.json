@@ -1,0 +1,10 @@
+[
+  {
+    "name": "The PR babysitter",
+    "command": "Watch the open pull requests on this repo. Whenever CI finishes, summarize failures, push the obvious fixes, and re-request review. Stop when all PRs are green or blocked on a human decision.",
+    "what_it_does": "Keeps a stack of PRs moving toward merge without manual polling.",
+    "category": "operations",
+    "author": "Cherag Shah",
+    "source_url": ""
+  }
+]

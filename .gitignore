@@ -1,0 +1,6 @@
+node_modules/
+dist/
+collector/dist/
+collector/data/refresh.log
+*.local
+.DS_Store
