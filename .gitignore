@@ -4,3 +4,6 @@ collector/dist/
 collector/data/refresh.log
 *.local
 .DS_Store
+
+# build info
+tsconfig.tsbuildinfo
