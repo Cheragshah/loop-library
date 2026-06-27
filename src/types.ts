@@ -20,3 +20,20 @@ export interface Loop {
 }
 
 export type SortKey = "trending" | "votes" | "name" | "last_seen";
+
+export interface Prompt {
+  slug: string;
+  title: string;
+  model: string;
+  type: string;
+  tag: string;
+  plan: string;
+  description: string;
+  /** "What's inside" checklist. */
+  inside: string[];
+  example: string;
+  framework: string;
+  framework_reason: string;
+  /** The full, copy-paste prompt. */
+  master_prompt: string;
+}

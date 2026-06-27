@@ -19,6 +19,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import store
 from collectors import csv_loops, forwardfuture, manual, social
+from export_prompts import build as build_prompts
 from export_xlsx import export as export_xlsx
 
 # The Vite app reads its data from public/. CI commits these files.
@@ -57,7 +58,9 @@ def main() -> int:
     )
     shutil.copy(xlsx, PUBLIC / "loop-library.xlsx")
 
-    print(f"\nCatalog: {len(loops)} loops total")
+    n_prompts = build_prompts()
+
+    print(f"\nCatalog: {len(loops)} loops + {n_prompts} prompts")
     print(f"  Canonical -> {store.STORE_PATH}")
     print(f"  App data  -> {PUBLIC / 'loops.json'}")
     print(f"  Excel     -> {PUBLIC / 'loop-library.xlsx'}")
